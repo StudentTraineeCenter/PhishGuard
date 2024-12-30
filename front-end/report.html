@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Report Results</title>
+    <link rel="stylesheet" href="./src/stylesEmail.css">
+    <link rel="stylesheet" href="./src/reportStyle.css">
+</head>
+<body>
+    <div id="report-container" class="report-container">Loading report...</div>
+    <script type="module">
+        import { getStoredResults, getExpectedReasons } from './src/reportHandeler.ts';
+        import { explanationArticles } from './src/explenation.ts';
+
+        function createStyledReport(results) {
+            const correctCount = results.reportedEmails.filter(email => {
+                const expectedReasons = getExpectedReasons(email.emailTimeId, email.senderInfo.id);
+                const reportedReasons = [...email.reasons].sort();
+                return JSON.stringify(expectedReasons) === JSON.stringify(reportedReasons);
+            }).length;
+
+            // Calculate accuracy
+            const accuracy = results.reportedEmails.length > 0
+                ? ((correctCount / results.reportedEmails.length) * 100).toFixed(1)
+                : '0.0';
+
+            const stats = `
+                <div class="report-header">
+                    <h1>Email Report Analysis</h1>
+                    <p>Session Date: ${new Date(results.timestamp).toLocaleString()}</p>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-number">${results.totalEmails}</div>
+                        <div>Total Emails</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${results.reportedEmails.length}</div>
+                        <div>Total Reported</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${correctCount}</div>
+                        <div>Correctly Recognized</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${accuracy}%</div>
+                        <div>Recognition Accuracy</div>
+                    </div>
+                </div>
+            `;
+
+            const emailReports = results.reportedEmails.map(email => {
+                const expectedReasons = getExpectedReasons(email.emailTimeId, email.senderInfo.id);
+                const reportedReasons = [...email.reasons].sort();
+                const isCorrect = JSON.stringify(expectedReasons) === JSON.stringify(reportedReasons);
+
+                // Add explanations for all expected and reported reasons
+                const explanationText = `
+                    <div class="plain-text-explanations">
+                        ${reportedReasons.map(reason => `
+                            <div class="explanation-text">
+                                <strong>${reason}:</strong>
+                                <pre>${explanationArticles[reason] || 'No explanation available.'}</pre>
+                            </div>
+                        `).join('')}
+                        
+                        ${!isCorrect ? `
+                            ${expectedReasons.filter(r => !reportedReasons.includes(r)).map(reason => `
+                                <div class="explanation-text missed">
+                                    <strong>${reason}:</strong>
+                                    <pre>${explanationArticles[reason] || 'No explanation available.'}</pre>
+                                </div>
+                            `).join('')}
+                        ` : ''}
+                    </div>
+                `;
+
+                return `
+                    <div class="email-item ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="email-id">Email #${email.emailId}</div>
+                        <div class="email-details">
+                            <div class="reasons">
+                                <div class="expected">Expected Issues: ${expectedReasons.join(', ')}</div>
+                                <div class="reported">Reported Issues: ${reportedReasons.join(', ')}</div>
+                            </div>
+                            <div class="status">${isCorrect ? '✓ Correct' : '✗ Incorrect'}</div>
+                        </div>
+                        ${explanationText}
+                    </div>
+                `;
+            }).join('');
+
+            // Handle unreported emails first
+            const unreported = results.unreportedEmails.length > 0 
+                ? `<div class="task email-task">
+                    <h2>Unreported Emails</h2>
+                    ${results.unreportedEmails.filter(emailId => 
+                        // Only include emails that weren't actually reported
+                        !results.reportedEmails.some(reported => reported.emailId === emailId)
+                    ).map(emailId => {
+                        const emailItem = document.querySelector(`[data-email-id="${emailId}"]`);
+                        const timeId = parseInt(emailItem?.getAttribute('data-time-id') || '0');
+                        const senderId = parseInt(emailItem?.getAttribute('data-sender-id') || '0');
+                        const expectedReasons = getExpectedReasons(timeId, senderId);
+                        
+                        return `
+                            <div class="email-item missed">
+                                <div class="email-id">Email #${emailId}</div>
+                                <div class="email-details">
+                                    <div class="expected">Issues that should have been reported: ${expectedReasons.join(', ')}</div>
+                                    <div class="status missed">✗ Not Reported</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                   </div>`
+                : '';
+
+            return `
+                <!-- Summary as a Task -->
+                <div class="task summary-task">
+                    ${stats}
+                </div>
+
+                <!-- Unreported Emails as Tasks -->
+                ${unreported}
+
+                <!-- Email Reports as Tasks -->
+                <div class="tasks">
+                    ${emailReports.replace(/<div class="email-item/g, '<div class="task email-task"><div class="email-item')}
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('report-container');
+            if (!container) return;
+
+            const results = JSON.parse(localStorage.getItem('reportData') || '{}');
+            if (!results || !results.timestamp) {
+                container.innerHTML = '<p class="error">No report data found!</p>';
+                return;
+            }
+
+            container.innerHTML = createStyledReport(results);
+        });
+    </script>
+</body>
+</html>

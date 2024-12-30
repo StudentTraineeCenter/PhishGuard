@@ -1,0 +1,271 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#app {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+.email-client {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 300px;
+  border-right: 1px solid #e0e0e0;
+  background: #f8f8f8;
+  overflow-y: auto;
+}
+
+.email-item {
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.email-item:hover {
+  background-color: #f0f0f0;
+}
+
+.email-item.active {
+  background-color: #e1f5fe;
+  border-left: 4px solid #0078d4;
+}
+
+.email-item .subject {
+  font-weight: 600;
+  color: #333;
+}
+
+.email-item .preview {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background: #fff;
+}
+
+#email-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#email-content h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#email-content p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  white-space: pre-line;
+}
+
+/* Remove conflicting styles */
+#app > #results {
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 24px;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input,
+textarea {
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #74ebd5;
+  outline: none;
+  box-shadow: 0 0 5px rgba(116, 235, 213, 0.5);
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  background: #74ebd5;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #4eccc4;
+}
+
+select {
+  width: 100%;
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #333;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 10px;
+}
+
+select:focus {
+  border-color: #74ebd5;
+  outline: none;
+  box-shadow: 0 0 5px rgba(116, 235, 213, 0.5);
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* Hobbies Wrapper for Bubble Tags */
+.hobbies-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.hobbies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px; /* Space between input and bubbles */
+}
+
+.hobby-tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #4caf50; /* Green bubble color */
+  color: white;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.hobby-tag .close {
+  margin-left: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  color: white;
+}
+
+.hobby-tag:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+
+.hobby-tag .close:hover {
+  color: #f1c40f; /* Yellow close button on hover */
+}
+
+#hobbyInput {
+  flex: 1 1 auto;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#hobbyInput:focus {
+  border-color: #74ebd5;
+  box-shadow: 0 0 5px rgba(116, 235, 213, 0.5);
+}
+
+#output {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 5px;
+  text-align: left;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+p {
+  font-size: 14px;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

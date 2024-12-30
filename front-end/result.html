@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="src/stylesEmail.css">
+</head>
+<body>
+    <div id="app">
+        <div id="results"></div>
+        <div class="email-client">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Inbox</h3>
+                </div>
+                <ul id="email-list">
+                    <!-- Email items will be injected here -->
+                </ul>
+            </div>
+            <div class="content">
+                <div id="email-content">
+                    <p>Select an email to view its contents</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./src/resultPage.ts" defer></script>
+</body>
+</html>

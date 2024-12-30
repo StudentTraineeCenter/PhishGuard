@@ -1,0 +1,320 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Additional styles specific to report.html */
+.report-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Add smooth scrolling */
+.report-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.report-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.report-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.report-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Task Container Styles */
+.task {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+}
+
+.summary-task {
+    background-color: #e3f2fd; /* Light blue for summary */
+}
+
+.email-task {
+    background-color: #f1f8e9; /* Light green for emails */
+}
+
+.explanations {
+    margin-top: 20px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.missed-explanations, 
+.wrong-explanations {
+    margin: 10px 0;
+}
+
+.missed-explanations h4 {
+    color: #dc3545;
+}
+
+.wrong-explanations h4 {
+    color: #ffc107;
+}
+
+.explanations h4 {
+    font-size: 1.2em;
+    padding: 10px 0;
+    margin: 10px 0;
+    border-bottom: 2px solid #eee;
+}
+
+.explanation-item {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 6px solid #2196F3;
+}
+
+.explanation-item h5 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    color: #1a1a1a;
+}
+
+.explanation-item p {
+    color: #333;
+    line-height: 1.6;
+    font-size: 1em;
+}
+
+.explanation-item ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.explanation-item li {
+    margin: 5px 0;
+    color: #444;
+}
+
+/* Specific styles for different types */
+.explanation-item.correct {
+    border-left-color: #28a745;
+    background: #f0fff4;
+}
+
+.explanation-item.wrong {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+}
+
+.explanation-item.missed {
+    border-left-color: #ffc107;
+    background: #fffbeb;
+}
+
+.correct h4 { color: #28a745; }
+.wrong-explanations h4 { color: #dc3545; }
+.missed-explanations h4 { color: #ffc107; }
+
+/* Icons for different types */
+.explanation-item h5::before {
+    font-size: 1.2em;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.explanation-item.correct h5::before {
+    content: "✓";
+    color: #28a745;
+}
+
+.explanation-item.wrong h5::before {
+    content: "⚠";
+    color: #dc3545;
+}
+
+.explanation-item.missed h5::before {
+    content: "!";
+    color: #ffc107;
+}
+
+/* Styles for plain text explanations */
+.plain-text-explanations {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-family: monospace;
+}
+
+.plain-text-explanations h3 {
+    margin: 10px 0;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.explanation-text {
+    margin: 15px 0;
+    padding: 10px;
+    background: white;
+    border-radius: 4px;
+}
+
+.explanation-text strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #2196F3;
+}
+
+.explanation-text.missed strong {
+    color: #ffc107;
+}
+
+.explanation-text pre {
+    white-space: pre-wrap;
+    font-family: monospace;
+    color: #333;
+    line-height: 1.4;
+    margin: 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+/* Email Item Styles */
+.email-item {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.email-id {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2196F3;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.email-details {
+    display: grid;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.email-from {
+    font-family: monospace;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.reasons {
+    margin: 15px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.expected, .reported {
+    padding: 5px 0;
+}
+
+.status {
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.email-item.correct .status {
+    background: #f0fff4;
+    color: #28a745;
+}
+
+.email-item.incorrect .status,
+.email-item.missed .status {
+    background: #fff5f5;
+    color: #dc3545;
+}
+
+/* Make sure all task containers have consistent styling */
+.task.email-task {
+    background: white;
+    margin-bottom: 30px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Article Section Styles */
+.article-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 6px solid #2196F3;
+}
+
+.article-section h3 {
+    color: #2196F3;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.article-content {
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-line;
+}
+
+.article-collection {
+    margin-top: 40px;
+    padding: 30px;
+    background: white;
+}
+
+.article-collection h2 {
+    color: #2196F3;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.article-collection .article-section {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+}
+
+.article-collection .article-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
